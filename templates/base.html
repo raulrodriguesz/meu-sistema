@@ -24,10 +24,12 @@
 
         /* LOGO */
         .logo {
-            width: 120px;
-            display: block;
-            margin: 0 auto 20px auto;
-        }
+    width: 100px;
+    display: block;
+    margin: 10px auto 20px auto;
+    border-radius: 12px;
+}
+        
 
         /* TITULO */
         .menu h2 {
@@ -95,7 +97,7 @@
 
 <div class="menu">
 
-    <img src="{{ url_for('static', filename='logo.png') }}">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="logo">
 
     <h2>MENU</h2>
 
