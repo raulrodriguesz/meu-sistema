@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Sistema</title>
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
 
     <style>
         body {
@@ -93,7 +94,7 @@
 
 <div class="menu">
 
-    <img src="/static/logo.png" class="logo">
+    <img src="{{ url_for('static', filename='logo.png') }}">
 
     <h2>MENU</h2>
 
