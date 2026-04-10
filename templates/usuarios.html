@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h2>👤 Gerenciar Usuários</h2>
+
+<!-- FORM -->
+<div class="card" style="margin-bottom: 20px;">
+    <h3>Criar novo usuário</h3>
+
+    <form method="POST">
+        <input type="text" name="usuario" placeholder="Usuário" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+
+        <select name="setor">
+            <option value="vendas">Vendas</option>
+            <option value="oficina">Oficina</option>
+            <option value="pecas">Peças</option>
+            <option value="todos">Todos</option>
+        </select>
+
+        <select name="tipo">
+            <option value="user">Usuário</option>
+            <option value="admin">Admin</option>
+        </select>
+
+        <button type="submit">➕ Criar</button>
+    </form>
+</div>
+
+<!-- TABELA -->
+<div class="card">
+    <h3>Usuários cadastrados</h3>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Usuário</th>
+            <th>Setor</th>
+            <th>Tipo</th>
+            <th>Ações</th>
+        </tr>
+
+        {% for u in usuarios %}
+        <tr>
+            <td>{{ u[0] }}</td>
+            <td>{{ u[1] }}</td>
+            <td>{{ u[2] }}</td>
+            <td>{{ u[3] }}</td>
+            <td>
+                {% if u[1] != 'admin' %}
+                <a href="{{ url_for('excluir_usuario', id=u[0]) }}"
+                   onclick="return confirm('Tem certeza que deseja excluir este usuário?')"
+                   class="btn-excluir">
+                   🗑️ Excluir
+                </a>
+                {% else %}
+                🔒 Protegido
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<style>
+form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+form input, form select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    background: linear-gradient(45deg, #525252, #525252);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* TABELA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #4facfe;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f5f5f5;
+}
+
+/* BOTÃO */
+.btn-excluir {
+    background: #e53935;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-excluir:hover {
+    background: #c62828;
+}
+</style>
+
+{% endblock %}

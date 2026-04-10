@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema</title>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            font-family: 'Segoe UI', Arial;
+            background: #f5f7fb;
+        }
+
+        /* MENU */
+        .menu {
+            width: 230px;
+            background: #ffffff;
+            height: 100vh;
+            padding: 20px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        /* LOGO */
+        .logo {
+            width: 120px;
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+
+        /* TITULO */
+        .menu h2 {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        /* LINKS */
+        .menu a, .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 5px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 15px;
+        
+        }
+
+        /* HOVER */
+        .menu a:hover, .menu-item:hover {
+            background: #f0f4ff;
+        }
+
+        /* ATIVO */
+        .ativo {
+            
+            font-weight: bold;
+        }
+
+        /* SUBMENU */
+        .submenu {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .submenu a {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* CONTEÚDO */
+        .conteudo {
+            flex: 1;
+            padding: 30px;
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="menu">
+
+    <img src="/static/logo.png" class="logo">
+
+    <h2>MENU</h2>
+
+    <a href="/home" class="ativo">🏠 Início</a>
+
+    <!-- VENDAS -->
+    <div class="menu-item" onclick="toggleMenu('vendasSub')">
+        📊 Vendas
+    </div>
+
+    <div id="vendasSub" class="submenu">
+        <a href="/vendas">1. Relatório geral de vendas</a>
+        <a href="/vendas1">2. Estoque de veículos usados</a>
+    </div>
+
+    <!-- OFICINA -->
+    <div class="menu-item" onclick="toggleMenu('oficinaSub')">
+        🔧 Oficina
+    </div>
+
+    <div id="oficinaSub" class="submenu">
+        <a href="/oficina">1. Ordem de serviço em aberto</a>
+        <a href="/oficina1">2. Passagens / Tiket Médio</a>
+        <a href="/oficina2">3. Vendas de peças na oficina</a>
+    </div>
+
+<!-- PECAS -->
+    <div class="menu-item" onclick="toggleMenu('pecasSub')">
+        📦 Peças
+    </div>
+
+    <div id="pecasSub" class="submenu">
+        <a href="/pecas">1. Vendas Balcão</a>
+    </div>
+    
+
+    {% if session.get('tipo') == 'admin' %}
+        <a href="/usuarios">👤 Usuários</a>
+    {% endif %}
+
+    <hr>
+
+    <a href="/logout">🚪 Sair</a>
+
+</div>
+
+<div class="conteudo">
+
+    <div class="card">
+        {% block conteudo %}{% endblock %}
+    </div>
+
+</div>
+
+<script>
+function toggleMenu(id) {
+    var menu = document.getElementById(id);
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>
