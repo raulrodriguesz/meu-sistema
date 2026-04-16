@@ -42,8 +42,25 @@ def criar_admin():
     conn.close()
 
 
+def criar_usuario_braz():
+    conn = sqlite3.connect('usuarios.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM usuarios WHERE usuario='braz'")
+    if not cursor.fetchone():
+        cursor.execute(
+            "INSERT INTO usuarios (usuario, senha, setor, tipo) VALUES (?, ?, ?, ?)",
+            ("braz", generate_password_hash("braz2026"), "todos", "user")
+        )
+        conn.commit()
+
+    conn.close()
+
+
+# EXECUTA AO INICIAR
 criar_banco()
 criar_admin()
+criar_usuario_braz()
 
 # =========================
 # LOGIN
@@ -120,9 +137,6 @@ def vendas1():
     return render_template('vendas1.html')
 
 
-
-
-
 # =========================
 # OFICINA
 # =========================
@@ -174,7 +188,6 @@ def usuarios():
     conn = sqlite3.connect('usuarios.db')
     cursor = conn.cursor()
 
-    # CADASTRAR
     if request.method == 'POST':
         try:
             cursor.execute(
@@ -190,7 +203,6 @@ def usuarios():
         except:
             return render_template('erro.html', mensagem="Usuário já existe")
 
-    # LISTAR
     cursor.execute("SELECT id, usuario, setor, tipo FROM usuarios")
     lista = cursor.fetchall()
 
